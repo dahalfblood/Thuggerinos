@@ -1,0 +1,360 @@
+\documentclass{article}[12 pt]
+
+\usepackage{setspace}
+\usepackage[skip = 3pt plus1pt]{parskip}
+\usepackage[shortlabels]{enumitem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{permute}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{multicol}
+\usepackage{blindtext}
+\usepackage[margin = .64125in]{geometry}
+
+
+
+\renewcommand{\notin}{\in\xnot}
+
+\newcommand{\bftab}{\fontseries{b}\selectfont}
+
+\title{Introduction to Measure Theory}
+
+\begin{document}
+\maketitle
+\section{The Exterior Measure}
+
+Def: Let E $\subset \mathbb{R}^d$. The exterior measure of E is defined as
+\begin{equation}
+	m_{*}(E) = \inf \{ \sum_{i=1}^{\infty} |Q_i| : E \subset \cup_{i=1}^{\infty} Q_i \}
+\end{equation}
+where the infimum is taken over the countable covering
+\begin{equation}
+	\cup_{i=1}^{\infty} Q_i \supset E
+\end{equation}
+by cubes $Q_i \in \mathbb{R}^d$. \\
+
+Remarks:
+\begin{enumerate}
+	\item $m_{*}\, :\, \mathcal{P} (\mathbb{R}^d) \to [0, \infty]$.
+	\item finite sums in the definition is not enough.
+\end{enumerate}
+
+In this case we get the outer Jordan measure which in general is bigger than our outer measure.\\
+Take. $E = \mathbb{Q} \cap [0,1] \implies J_{*}(E) = 1$ \\
+
+Note, for our setting, $\mathbb{Q} \cap [0,1] \implies m_{*}(E) = 0$
+
+\begin{enumerate}
+	\item $m_*({x}) = 0$, and same of the emqpty set.
+	\item if Q $\subset \mathbb{R}^p$ is a closed club, then $m_{*}(Q) = |Q|$
+\end{enumerate}
+Since $Q supset Q \implies m_{*}(Q) \leq |Q|$.\\
+\begin{proof}
+	Let $$Q \subset \cup_{i}^{\infty}Q_j$$\\
+	Let $\epsilon > 0$ and choose an open cube $S_j\, \supset\, Q_j$ such that $|\bar{S_j}| \leq (1+\epsilon) |Q_j|$
+	Since $$\bigcup_{j=1}^{\infty}$$ is an open coverign of the compact set Q, there is a finite subcovering such that $Q \subset \cup_{j=1}^{n}S_j$\\
+
+	Applying lemma 2, we deduce that
+	\begin{equation}
+		|Q| \leq |\bar{S_j}| + \dots + |\bar{S_{j_{k}}}| \leq (1+\epsilon)(|Q_{j_{i}}| + \dots + |Q_{j_{k}}|) \leq (1+\epsilon) \sum_{j=1}^{\infty} |Q_j|
+	\end{equation}
+	for all $\epsilon > 0$
+
+	Take $\epsilon \to 0$ to get the result.
+
+	If Q is an open cube then $m_{*}(Q) = |Q|$
+	Since $Q \subset Q \implies m_{*}(Q) \leq |\bar{Q}|\,=\,|Q|$
+	Let $\epsilon > 0$ and choose a closed cube $Q_{o} \subset Q$ such that $|Q| \leq (1+\epsilon)|\bar{S}|$
+	Then $|Q_{o} \geq |Q| -\varepsilon \implies |Q| - \varepsilon \geq |\bar{Q_{o}}| = m_{*}(Q) \leq m_{*}(Q)$ for any epsilon
+	If epsilon goes to zero we get $|Q| \leq m_{*}(Q)$
+\end{proof}
+
+If we use a closed rectangle, we see that the intial part of the proof applies the same way.
+We just need to show that $M_{*}(R) \leq |R|$\
+The Key theorem infolved to prove both examples and both inequalities is the Heine-Borel theorem.
+
+
+\section{Properties of the Exterior Measure}
+Let $E \subset \mathbb{R}^d$. Then ($\forall \varepsilon > 0$) there exists a countable collection of cubes $\{Q_i\}$ such that
+
+E $\subset \cup_{i=1}^{\infty}Q_i$ and
+\begin{equation}
+	m_{*}(E) + \varepsilon \geq \sum_{i=1}^{\infty}|Q_i| \leq m_{*}(E) + \varepsilon,
+\end{equation}
+if $m_{*}(E) < \infty$\\
+
+If $m_{*}(E) = \infty, \sum_{i=1}^{\infty}|Q_i| = \infty$\\
+The exterior measure has the following properties:
+\begin{enumerate}
+	\item Monotonicity: If $E_1 \subset E_2 \subset \mathbb{R}^d$, then $m_{*}(E_1) \leq m_{*}(E_2)$. \\
+	      \begin{equation}
+		      \text{E is bounded,} \implies m_{*}(E) < \infty.
+	      \end{equation}
+	\item Countable subadditivity:
+	      \begin{equation}
+		      E = \cup_{i=1}^{\infty}E_i, \implies m_{*}(E) \leq \sum_{i=1}^{\infty}m_{*}(E_i)
+	      \end{equation}
+	      \begin{equation}
+		      E = \cup_{i=1}^{n}E_i, \implies m_{*}(E) \leq \sum_{i=1}^{n}m_{*}(E_i)
+	      \end{equation}
+	      \begin{proof}
+		      Assume $m_{*}(E_j) < \infty\; \forall j\,\in\mathbb{N}$\\
+		      Let $\varepsilon > 0$ and choose a countable collection of cubes $\{Q_{ij}\}$ such that $E_j \subset \cup_{i=1}^{\infty}Q_{ij}$ such that
+		      \begin{equation}
+			      m_{*}(E_j) + \frac{\varepsilon}{2^j} \geq \sum_{i=1}^{\infty}|Q_{ij}| \geq m_{*}(E_j) - \frac{\varepsilon}{2^j}
+		      \end{equation}
+		      Then $E \subset \cup_{i,j}^{infty}Q_{ij}$ isa  covering of closed cubes and $m_{*}(E) \leq \sum_{i,j}|Q_{ij}| \leq \sum_{j}m_{*}(E_j) + \frac{\varepsilon}{2^j}$\\
+		      Let $\varepsilon \to 0$ to get the result:
+		      \begin{equation}
+			      m_{*}(E) \leq \sum_{j=1}^{\infty}m_{*}(E_j)
+		      \end{equation}
+	      \end{proof}
+
+	      Proposition: \\
+	      If $E \subset \mathbb{R}^d$ and $m_{*}(E) = inf\{m_{*}(U) : E \subset U, U \text{ is open}\}$
+	      Then, by Monotonicity, $m_{*}(E) \leq inf\, \{m_{*}(U) : E \subset U, U \text{ is open}\}$
+	      We need to show that the infimum is less than or equal to $m_{*}(E)$
+
+	      It is sufficent to show that $\forall \varepsilon > 0$ there exists an open set $U$ such that $E \subset U$ and $m_{*}(U) \leq m_{*}(E) + \varepsilon$
+	      Let $\varepsilon > 0$ and choose a countable collection of cubes $\{Q_i\}$ such that $E \subset \cup_{i=1}^{\infty}Q_i$ and
+	      \begin{equation}
+		      m_{*}(E) + \varepsilon \leq \sum_{i=1}^{\infty}|Q_i| \leq m_{*}(E) - \frac{\varepsilon}{2}\\
+	      \end{equation}
+	      For each j, let $\tilde{Q_{j}}$ denote an open cube such that $Q_{j} \subset \tilde{Q_{j}}$ and $|\tilde{Q_{j}}| \leq |Q_{j}| + \frac{\varepsilon}{2^{j+1}}$
+	      Then U = $\cup_{j=1}^{\infty}\tilde{Q_{j}}$ is open and, due to subadditivity, we have:
+	      \begin{equation}
+		      m_{*}(U) \leq \sum_{j=1}^{\infty}m_{*}(\tilde{Q}) = \sum_{j=1}^{\infty}|\tilde{Q_{j}}| \leq \sum_{j=1}^{\infty}|Q_{j}| + \frac{\varepsilon}{2^{j+1}} = \sum_{j=1}^{\infty}|Q_{j}| + \frac{\varepsilon}{2}  \leq m_{*}(E) + \varepsilon
+	      \end{equation}
+
+	      Proposition:\\
+	      If $E\,=\,E_1\bigcup E_2$ and $d(E_1,E_2) > 0$ then $m_{*}(E) = m_{*}(E_1) + m_{*}(E_2)$\\
+
+	      \begin{proof}
+		      Due to subadditivity, we have $m_{*}(E) \leq m_{*}(E_1) + m_{*}(E_2)$\\
+		      We must show that $m_{*}(E) \geq m_{*}(E_1) + m_{*}(E_2)$\\
+		      Choose a convering of Closed Cubes such that
+		      \begin{equation}
+			      m_{*}(E)\, \leq \sum_{i=1}^{\infty}|Q_i| \leq m_{*}(E) + \varepsilon\\
+		      \end{equation}
+		      Then
+		      \begin{equation}
+			      E_1 \subset \cup_{i=1}^{\infty}Q_i \implies m_{*}(E_1) \leq \sum_{i=1}^{\infty}|Q_i| \leq m_{*}(E_1) + \varepsilon\\
+		      \end{equation}
+		      Then
+		      \begin{equation}
+			      E_2 \subset \cup_{i=1}^{\infty}Q_i \implies m_{*}(E_2) \leq \sum_{i=1}^{\infty}|Q_i| \leq m_{*}(E_2) + \varepsilon\\
+		      \end{equation}
+		      Then
+		      \begin{equation}
+			      E \subset \cup_{i=1}^{\infty}Q_i \implies m_{*}(E) \leq \sum_{i=1}^{\infty}|Q_i| \leq m_{*}(E) + \varepsilon\\
+		      \end{equation}
+		      Subdividing the cubes, we can assume that each $Q_j$ has a diameter less than $d(E_1,E_2)$\\
+		      Let $J_1 := \{j \in \mathbb{N}: Q_j \cap E_1 \neq \emptyset\}$\\
+		      and \\
+		      Let $J_2 := \{j \in \mathbb{N}: Q_j \cap E_2 \neq \emptyset\}$\\
+		      Then $J_1$ and $J_2$ are disjoint and $E_1 \subset \cup_{j\in J_1}Q_j$ and $E_2 \subset \cup_{j\in J_2}Q_j$
+		      Then $E \subset \cup_{j\in J_1}Q_j \cup \cup_{j\in J_2}Q_j$
+		      Then
+		      \begin{equation}
+			      m_{*}(E) \leq \sum_{j\in J_1}|Q_j| + \sum_{j\in J_2}|Q_j| \leq m_{*}(E) + \varepsilon\\
+		      \end{equation}
+	      \end{proof}
+	      Proposition:\\
+	      If $E \subset \mathbb{R}^d$ isa countable union of almost disjoint cubes, then $m_{*}(E) = \sum_{i=1}^{\infty}|Q_i|$\\
+	      \begin{proof}
+		      Let $\tilde{Q_j}$ be a cube strictly contained in $Q_j$ such that $|Q_j| < |\tilde{Q_j}| + \frac{\varepsilon}{2^j}$ for all $\tilde{Q_j}$ a positive distance away from eachother\\
+		      Applying the previous proposition, we obtain:
+		      \begin{equation}
+			      m_{*}(\cup_{j=1}^{infty}Q_j) = \sum_{j=1}^{N}|\tilde{Q_j}| \geq \sum_{j=1}^{N}|Q_j| - \frac{\varepsilon}{2^j} \geq \sum_{j=1}^{N}|Q_j| - \varepsilon
+		      \end{equation}
+		      which implies
+		      \begin{equation}
+			      m_{*}(\cup_{j=1}^{infty}Q_j) \geq \sum_{j=1}^{N}|Q_j| - \varepsilon, \forall N \text{and} \forall \varepsilon > 0\\
+		      \end{equation}
+		      Take $N\to \infty$ and $\varepsilon \to 0$ to get the result:
+		      \begin{equation}
+			      m_{*}(E) \geq \sum_{j=1}^{\infty}|Q_j|
+		      \end{equation}
+	      \end{proof}
+	      Remark:\\
+	      If U is an open set in $\mathbb{R}^d$ then $m_{*}(\cup_{i=1}^{\infty}Q_i) = \sum_{i=1}^{\infty}|Q_i|$ is a decomposition of U into almost disjoint cubes.\\
+	\item Translation invariance:
+	      \begin{equation}
+		      E \subset \mathbb{R}^d, \implies m_{*}(E + x) = m_{*}(E) \forall x \in \mathbb{R}^d
+	      \end{equation}
+\end{enumerate}
+
+
+\section{Lebesgue Measure and Lebesgue Measurable Sets}
+Definition:\\
+\begin{enumerate}
+	\item A set E $\subset \mathbb{R}^d$ is said to be Lebesgue measurable if $\forall \varepsilon > 0$ there exists an open set U such that $E \subset U$ and $m_{*}(U\backslash E) < \varepsilon$\\
+	\item If E is Lebesgue measurable, then the Lebesgue measure of E is defined as $m(E) = m_{*}(E)$
+\end{enumerate}
+Proposition:\\
+Every open set in $\mathbb{R}^d$ is Lebesgue measurable.\\
+Properties of the Lebesgue Measure:
+\begin{enumerate}
+	\item If $E \subset \mathbb{R}^d$ is Lebesgue measurable, then $m(E) = 0$\\
+	      In particular, if $F \subset E$ and $m(E) = 0$ then F is measurable\\
+	      \begin{proof}
+		      Recall $m_{*}(E) = inf\{m_{*}(U) : E \subset U, U \text{ is open}\}$\\
+		      since $m_{*}(E) = 0$, we have $\forall \varepsilon > 0$ there exists an open set U such that $E \subset U$ and $m_{*}(U) < \varepsilon$\\
+		      Since $U\backslash E \subset U$, we have $m_{*}(U\backslash E) \leq m_{*}(U) < \varepsilon$\\
+		      If $F \subset E$ and $m(E) = 0$ then $m_{*}(E) = 0$ and $m_{*}(F) \leq m_{*}(E) = 0$\\
+		      Then $m_{*}(F) = 0$ and F is measurable
+	      \end{proof}
+	      Remark:\\
+	      The Cantor Tenary set is measureable and has measure zero.\\
+	      \begin{proof}
+		      \begin{center}
+			      $trivial$
+		      \end{center}
+	      \end{proof}
+	\item A countabe union of measureable sets is measureable.\\
+	      \begin{proof}
+		      Let $E = \bigcup_{i=1}^{\infty}E_i$ and $E_i$ is measureable.\\
+		      Given $\varepsilon > 0$, let $U_j$ be open such that $O_j \supset E_j$ and $m_{*}(U_j\backslash E_j) < \frac{\varepsilon}{2^j}$\\
+		      Then $U = \bigcup_{j=1}^{\infty}U_j$ is open and $E \subset U$\\
+		      Then $$U\backslash E = \cup_{j=1}^{\infty}U_j\backslash E_j$$\\
+		      Then $O\backslash E \subset \bigcup_{j=1}^{\infty}U_j\backslash E_j$\\
+		      Then
+		      \begin{equation}
+			      m_{*}(U\backslash E) \leq \sum_{j=1}^{\infty}m_{*}(U_j\backslash E_j) < \sum_{j=1}^{\infty}\frac{\varepsilon}{2^j}= \varepsilon\\
+		      \end{equation}
+		      Then E is measureable
+	      \end{proof}
+	      Lemma:\\
+	      If $F\subset \mathbb{R}^d$ is closed and $K\subset\mathbb{R}^d$ is compact and $F\bigcap K = \null$, then $d(F,K) > 0$\\
+
+	      \begin{proof}
+		      Assume that the $d(F,K) = 0$\\
+		      Then $\exists$ a sequence $\{x_n\}$ in F and a sequence $\{y_n\}$ in K such that $d(x_n,y_n) <1 \frac{1}{n}$
+		      since K is compact, due to Heine-Borel Theorem, K is bounded and closed.
+		      Then, by Bolzano-Weierstrauss Theorem, $\{y_n\}$ has a convergent subsequence $\{y_{n_k}\}$ such that $y_{n_k} \to y \in K$
+		      Since
+		      \begin{equation}
+			      d(x_{n_k},y_{n_k}) < \frac{1}{n_k} \to 0\\
+		      \end{equation}
+		      Then $x_{n_k} \to y$
+		      Then $x_n \in F$ where $F$ is closed.
+		      Therefore $y \in F$
+		      Then $y \in F\bigcap K$
+		      Then $d(F,K) = 0$, which contradicts our lemma that $K\bigcup F = \null$.
+	      \end{proof}
+
+	\item Closed sets are measureable.\\
+	      \begin{proof}
+		      It is enough to prove that compact sets are measureable:
+		      If $F$ is closed, then $F = \bigcup_{n=1}^{\infty}F\bigcap B_n(0)$ then applie the previous property.
+		      Assume $F$ is compact, then $F$ is closed and bounded.\\
+		      Then $m_{*}(F) < \infty$\\
+		      $\forall \varepsilon > 0$, since $m_{*}(F) = inf\{m_{*}(U): U \supset F\, U = \text{open}\}$
+		      We can choose an U such that $F \subset U$ and $m_{*}(U) \leq m_{*}(F) + \varepsilon$
+		      Then $U\backslash F := U\cap F^{c}$ is open, $U\backslash F = \bigcup_{j=1}^{\infty}Q_j$ a countable union of disjoint cubes. It is enough to prove $$\sum_{j=1}^{N}m_{*}(Q_j) < \varepsilon$$
+		      Let $K = \bigcup_{j=1}^{N}Q_j$
+		      Then $K$ is compact and $F\bigcap K = \null$ and $F\cup K \subset U$
+		      Since $K$ and $F$ are compact, we can use the previous lemma to conclude that $d(F,K) > 0$
+		      Now
+		      \begin{equation}
+			      m_{*}(U) \geq m_{*}(F\cup K) = m_{*}(F) + m_{*}(K) = m_{*}(F) + \sum_{j=1}^{N}m_{*}(Q_j)\\
+		      \end{equation}
+		      Then
+		      \begin{equation}
+			      m_{*}(F) + \sum_{j=1}^{N}m_{*}(Q_j) \leq m_{*}(U) - m_{*}(F) < \varepsilon\\
+		      \end{equation}
+		      Then $m_{*}(F) < \varepsilon$\\
+		      Then $F$ is measureable
+	      \end{proof}
+	      SHOW THAT THE LEMMA FAILS IF F AND K ARE ONLY CLOSED AND NOT NECESARILY COMPACT WHERE THEY SHARE NO POINTS\\
+	\item The complement of a measureable set is measureable.
+	      \begin{proof}
+		      Assume $E$ is measureable.
+		      Then $\forall n \in \mathbb{N}, \exists O_n$ open such that $E \subset O_n$ and $m_{*}(O_n\backslash E) < \frac{1}{n}$
+		      Since $O_n^{c}$ is a closed set, it is measureable. Consequently, $S:= \bigcap_{n=1}^{\infty}O_n^{c}$ is also measurable.
+		      Then $S \subset E^{c}$ and $E^c\backslash S \subset E\backslash O_n$
+		      $E^c\cap S^c \subset O_n\cap E^c$ because the $\cap_{k}O_k \subset O_n$
+		      Hence $m_{*}(E^c\backslash S) \leq m_{*}(E\backslash O_n) < \frac{1}{n}$\\
+		      Take $n\to \infty$ to get the result. Therefore $E^c\backslash S$ is measureable.
+		      To conclude, note that $E^c = S\cup (E^c\backslash S)$\\
+		      Then $E^c$ is measureable.
+	      \end{proof}
+	\item The union of two measureable sets is measureable.
+	      \begin{proof}
+		      Assume a squence of sets $\{E_n\}$ is measureable.
+		      Then using DeMorgan's Law we have $\bigcup_{j=1}^{\infty}E_j = (\bigcap_{j=1}^{\infty}E_j^c)^c$
+		      Then $\bigcap_{j=1}^{\infty}E_j^c$ is measureable and hence $\bigcup_{j=1}^{\infty}E_j$ is measureable.
+	      \end{proof}
+\end{enumerate}
+
+
+\section{Theorem}
+If $E_1,\,E_2,\,\dots,\,$ are disjoing measureable sets and $E = \bigcup_{j=1}^{\infty}E_j$ then $m(E) = \sum_{j=1}^{\infty}m(E_j)$\\
+\begin{proof}
+	Case 1:\\
+	Assume that each $E_j$ is bounded. we have
+	\begin{equation}
+		\sum_{j=1}^{N}m(E_j) \leq m(\bigcup_{j=1}^{N}E_j) \leq m(E)\\
+	\end{equation}
+	Since $E_{j}^{c}$ is measurable $\exists U_j \substack{\supset_{open}} E_j^{c}$ such that $m(U_j\backslash E_j^{c}) < \frac{\varepsilon}{2^j}$\\
+	Let $F_j = U_j^{c}$ and note that $F_j$ is closed and $E_j \backslash F_j = F_j^{c} \backslash E_j^{c} = U_j \backslash E_j$\\
+	Conesquently, $m(E_j\backslash F_j) = m_*(U_j^{c}\backslash E_j^{c})< \frac{\varepsilon}{2^j}$\\
+	Note, $F_j$ is compact by Heine-Borel Theorem\\
+	Let $N \in \mathbb{N}$ and since $\{F_n\}_{j=1}^{N}$ are disjoint, we have we have
+	\begin{equation}
+		m(\bigcup_{j=1}^{N}F_j) = \sum_{j=1}^{N}m(F_j)\\
+	\end{equation}
+
+	since $\cup_{j=1}^{N}F_j \subset E = \cup_{j=1}^{\infty}E_j$ we have
+	\begin{equation}
+		\Sigma_{j=1}^{N}m(F_j) \leq m(E)\\
+	\end{equation}
+	On the otherhand, we have $F_j \cup (E_j\backslash F_j) = E_j$. Hence we deduce that
+	\begin{equation}
+		m_*(E_j) \leq m_* (F_j) + m_*(E_j\backslash F_j) = m_*(E_j) + \frac{varepsilon}{2}\\
+	\end{equation}
+	Giving us
+	\begin{equation}
+		\Sigma_{j=1}^{N}m(E_j) \leq \Sigma_{j=1}^{N}m(F_j) + \Sigma_{j=1}^{N}\frac{1}{2^j} \leq m(E) + \varepsilon\\
+	\end{equation}
+	Take $N \to \infty$ and $\varepsilon \to 0$ to get the result\\
+	\begin{equation}
+		m_*(E) \leq \Sigma_{j=1}^{\infty}m(E_j)\\
+	\end{equation}
+	Case 2:\\
+	E is not necessarily bounded.\\
+	Let $\{Q_k\}_{k=1}^{\infty}$ be a sequence of closed cubes, such that $Q_k$ covers $\mathbb{R}^d$
+	set $S = Q_1$ and $S_k = Q_k \backslash Q_{k-1}$
+	and $E = \bigcup_{j,k=1}^{\infty}E_{j,k}$ where $E_j = \cup_{k=1}^{\infty}E_{j,k}$\\
+	Applying case 1, yields
+
+	\begin{equation}
+		m(E) = \sum_{j,k=1}^{\infty}m(E_{j,k}) = \sum_{j=1}^{\infty}\sum_{k=1}^{\infty}m(E_{j,k}) = \sum_{j=1}^{\infty}m(E_{j})
+	\end{equation}
+\end{proof}
+\section{Corollary}
+Let $E_1, E_2$ be measurable sets.
+\begin{enumerate}
+	\item If $E_1$ increases to E, then E is measurable and $m(E) = \substack{\lim_{n\to \infty}}m(E_n)$
+	\item If $E_1$ decreases to E, then E is measurable and $m(E) = \substack{\lim_{n\to \infty}}m(E_n)$
+\end{enumerate}
+\begin{proof}
+	Note that E = $\bigcup_{n=1}^{\infty}E_n = E_1 \bigcup (E_2\backslash E_1) \bigcup (E_3\backslash E_2) \bigcup \dots$ where each set equals and element from $G_k$
+	where $E = \cup_{k=1}^{\infty}G_k$ and $G_k$ is a disjoint set.
+	Hence $m(E) = \sum_{k=1}^{\infty}m(G_k) = \sum_{k=1}^{\infty}m(E_k)$
+	\begin{equation}
+		m(E) = \substack{\lim_{n\to \infty}}m(G_n) = \substack{\lim_{n\to \infty}}m(E_n)
+	\end{equation}
+\end{proof}
+
+
+
+
+\end{document}
+
+
